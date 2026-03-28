@@ -1,7 +1,14 @@
 import os, sys, traceback, pymysql
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-CORS(app)   # allow all origins while testing
+from scrape import scrape_bp          # new line
+
+app = Flask(__name__)
+CORS(app)                              # allow browser
+app.register_blueprint(scrape_bp)      # new line
+
+# existing /api/suggest code here …
+
 
 try:
     db = pymysql.connect(
